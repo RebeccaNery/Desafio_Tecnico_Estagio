@@ -1,0 +1,39 @@
+vetor de caracteres que armazena: a (abertura), f(fechamento) ou t (texto)
+
+possibilidades:
+1- abertura, texto, fechamento
+2- abertura, abertura, texto, fechamento, fechamento
+3- abertura, texto, abertura, texto, fechamento, fechamento
+
+o que conta sao quantas aberturas ocorreram antes do texto
+o aparecimento de cada tag de fechamento reduz a contagem em 1, entendendo que agora estamos analisando outro trecho
+
+Exemplo original:
+
+<html>
+    <head>
+        <title>
+            Este é o título.
+        </title>
+    </head>
+    <body>
+        Este é o corpo.
+    </body>
+</html>
+
+Exemplo MODIFICADO:
+
+<html>
+    <head>
+        <title>
+            Este é o título.
+                <p>
+                    Este é um parágrafo.
+                </p>
+        </title>
+    </head>
+    <body>
+        Este é o corpo.
+    </body>
+</html>
+
