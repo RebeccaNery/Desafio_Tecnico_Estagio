@@ -37,3 +37,77 @@ Exemplo MODIFICADO:
     </body>
 </html>
 
+
+if (stringOriginal.charAt(i) == '<'){                          // SE FOR O SINAL DE MENOR QUE
+    if ((i-1) >=0 && (i+1) < stringOriginal.length()){                      // SE A POSIÇÃO EXISTE
+
+        if(stringOriginal.charAt(i + 1) != '/'){               //SE O PROXIMO NAOOOOO FOR BARRA, QUER DIZER QUE É TAG ABERTURA
+            abertura++;
+            System.out.println("Aqui tem tag de abertura. Posição:" + i);
+            i++;                //ABERTURA DE TAG
+        }else{
+             fechamento++;
+             System.out.println("Aqui tem tag de fechamento. Posição:" + i);
+             i++;
+
+    }else{
+        System.out.println("Não há mais caracteres. Posição :" + i);
+    } //FORA DOS LIMITES
+
+    if (stringOriginal.charAt(i-1) != '>'){
+        fimTexto = i-1;
+        System.out.println("Aqui tem fim de texto. Posição:" + fimTexto);
+        i++;
+    } // FIM DE TEXTO
+
+
+}else if(stringOriginal.charAt(i) == '>'){                     // SE FOR O SINAL DE MAIOR QUE
+        if ((i-1) >=0 && (i+1) < stringOriginal.length()){
+            if(stringOriginal.charAt(i + 1) != '<'){           // OUTRA ABERTURA DE TAG EM SEQUENCIA
+                inicioTexto = i+1;
+                System.out.println("Aqui tem inicio de texto. Posição:" + inicioTexto);
+                i++;
+            } //INICIO DE TEXTO
+        }else{
+        System.out.println("Não há mais caracteres. Posição final:" + i);
+        }
+
+
+
+
+
+
+
+
+
+
+
+//            if (stringOriginal.charAt(i) == '<' && i + 1 < stringOriginal.length() && stringOriginal.charAt(i + 1) != '/') {
+//                abertura++;
+//                System.out.println("Aqui tem tag de abertura. Posição:" + i);
+//                i++;
+//            }//if
+//
+//            if (stringOriginal.charAt(i) == '>' && i + 1 < stringOriginal.length() && stringOriginal.charAt(i + 1) != '<'){
+//                inicioTexto = i+1;
+//                System.out.println("Aqui tem inicio de texto. Posição:" + inicioTexto);
+//                i++;
+//
+//            }//if
+//
+//            if (stringOriginal.charAt(i) == '<' && i - 1 >= 0 && stringOriginal.charAt(i - 1) != '>'){
+//                System.out.println("Aqui tem fim de texto. Posição:" + i);
+//                i++;
+//
+//            }//if
+//
+//            if (stringOriginal.charAt(i) == '<' && i + 1 < stringOriginal.length() && stringOriginal.charAt(i + 1) == '/'){
+//                fechamento++;
+//                System.out.println("Aqui tem tag de fechamento. Posição:" + i);
+//                i++;
+//            }//if
+
+
+
+
+
