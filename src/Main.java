@@ -68,11 +68,17 @@ public class Main {
                         inicioTexto = i + 1;
                         System.out.println("Aqui tem inicio de texto. Posição:" + inicioTexto);
                         i++;
-                    } //INICIO DE TEXTO
-                } else {
-                    System.out.println("Não há mais caracteres. Posição final:" + i);
-                }
-            } // >>>>>>>>>>>>>>>>>
+                    }                                                           //INICIO DE TEXTO
+
+                } //>>>>>>>>>>>>>>>>>>>>>>
+
+
+            } else if (stringOriginal.charAt(i) == '<') {
+                System.out.println("Aqui tem tag de abertura. Posição:" + i);       //primeira tag de abertura
+            } else if (stringOriginal.charAt(i) == '>'){
+                System.out.println("Fim do código. Posição:" + i);     //ultimo caracter
+            }
+        } //for
 
                 //trechos[i] = stringOriginal.substring(abertura, fechamento);
 
