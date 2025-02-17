@@ -1,5 +1,12 @@
 public class Main {
 
+    public static boolean verificaLimites(int i, String stringOriginal) {
+        if (stringOriginal == null || stringOriginal.length() < 2) {
+            return false; // Se a string for nula ou tiver menos de 2 caracteres, não é possível acessar i-1 e i+1.
+        }
+        return (i - 1) >= 0 && (i + 1) < stringOriginal.length();
+    }
+
     public static void main(String[] args) {
 
         String[] trechos = new String[100];
