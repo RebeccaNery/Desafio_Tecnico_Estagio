@@ -125,6 +125,27 @@ return posicoes;
         return abertura;
     }//metodo contaAberturas
 
+    public static int contaFechamentos(String stringOriginal) {
+        int fechamento = 0;
+        System.out.println("Contagem das tags de fechamento ======>");
+        for (int i = 0; i < stringOriginal.length(); i++) {                 //percorre o codigo html
+            if (verificaLimites(i, stringOriginal)) {                       // SE A POSIÇÃO EXISTE
+
+                if (stringOriginal.charAt(i) == '<') {                      // SE FOR O SINAL DE MENOR QUE
+                    if (stringOriginal.charAt(i+1) == '/') {     //FECHAMENTO DE TAG
+                        fechamento++;
+                        System.out.println("Aqui tem tag de fechamento. Posição:" + i + " / Fechamento:" + fechamento);
+                        i++;
+                    }
+                } //<<<<<<<<<<<<<<<<<<<<<<
+
+            } else {
+                System.out.println("Ultrapassagem de limite, verifique e tente novamente. ==>" + i);
+            }
+        } //for
+        return fechamento;
+    }//metodo contaFechamentos
+
     public static ArrayList<Trecho> encontraTrechos (String stringX, int[] posicoes){
         ArrayList<Trecho> trechosList = new ArrayList<>(); // este metodo preenche um arraylist
         //String[] textos = encontraTextos(stringX, posicoes);
