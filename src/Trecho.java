@@ -4,12 +4,17 @@ public class Trecho {
     public int inicio;
     public int fim;
     public int nivel;
+    public int tagsDeAbertura;
+    public int tagsDeFechamento;
+
 
     public Trecho(String texto, int inicio, int fim) {
         this.texto = texto;
         this.inicio = inicio;
         this.fim = fim;
         this.nivel = 1;
+        this.tagsDeAbertura = 0;
+        this.tagsDeFechamento = 0;
     }
 
     public String getTexto() {
@@ -44,7 +49,24 @@ public class Trecho {
         return nivel;
     }
 
+    public int getTagsDeAbertura() {
+        return tagsDeAbertura;
+    }
+
+    public void setTagsDeAbertura(int tagsDeAbertura) {
+        this.tagsDeAbertura = tagsDeAbertura;
+    }
+
+    public int getTagsDeFechamento() {
+        return tagsDeFechamento;
+    }
+
+    public void setTagsDeFechamento(int tagsDeFechamento) {
+        this.tagsDeFechamento = tagsDeFechamento;
+    }
+
     public String toString() {
-        return "Texto: " + texto + " ==> Inicio: " + inicio + " | Fim: " + fim + " | Nivel: " + nivel;
+        //return "Texto: " + texto + " ==> Inicio: " + inicio + " | Fim: " + fim + " | Nivel: " + nivel;
+        return "Texto: " + "'" + texto + "'" + " | A: " + tagsDeAbertura + " | F: " + tagsDeFechamento+ " | Nivel: " + nivel;
     }
 }

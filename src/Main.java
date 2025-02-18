@@ -57,10 +57,10 @@ public class Main {
 return posicoes;
     }//metodo encontraPosicoes
 
-    public static int contaAberturas(String stringOriginal, int posFim,int posInicio) {
+    public static int contaAberturas(String stringOriginal, int posInicio) {
         int abertura = 0;
 
-        for (int i = posFim; i < posInicio; i++) {                 //percorre o codigo html
+        for (int i = 0; i < posInicio; i++) {                 //percorre o codigo html
             if (verificaLimites(i, stringOriginal)) {                       // SE A POSIÇÃO EXISTE
 
                 if (stringOriginal.charAt(i) == '<') {                      // SE FOR O SINAL DE MENOR QUE
@@ -114,21 +114,22 @@ return posicoes;
         // nivel = num_aberturas - num_fechamentos + 1
         int num_aberturas = 0;
         int num_fechamentos = 0;
-        //int fim = 0;
 
         for (Trecho t : trechosList) {
             int inicio = t.getInicio();
             //for (int i = fim; i< inicio; i++){
-                num_aberturas = contaAberturas(stringOriginal, 0, inicio);
+                num_aberturas = contaAberturas(stringOriginal, inicio);
                 num_fechamentos = contaFechamentos(stringOriginal, inicio);;
             //}
-            System.out.println("Nº aberturas : "+ num_aberturas);
-            System.out.println("Nº fechamentos : "+ num_fechamentos);
-            t.setNivel(num_aberturas - num_fechamentos + 1); //+ 1 por conta da tag de abertura inicial <html>
+            t.setNivel(num_aberturas - num_fechamentos + 1); // +1 por conta da tag de abertura inicial <html>que não
+            // aparece pois ultrapassa os limites
+            t.setTagsDeAbertura(num_aberturas);
+            t.setTagsDeFechamento(num_fechamentos);
+            System.out.println("Nº aberturas : " + t.tagsDeAbertura);
+            System.out.println("Nº fechamentos : " + t.tagsDeFechamento);
+            System.out.println("Nível: " + t.getNivel());
         }
     }
-
-
 
     public static Trecho comparaNiveis (ArrayList<Trecho> trechosList){
         Trecho trechoMaisProfundo = new Trecho("", 0, 0);
@@ -146,11 +147,6 @@ return posicoes;
 
     public static void main(String[] args) {
 
-//        String tagAbertura = "<";
-//        String tagFechamentoTotal = "</";
-//        String inicioDeTexto = ">";
-//        String fimDeTexto = "<";
-
         //String stringOriginal = "<html> <head> coisas </head> </html>"; //===> só que a "string original" é um código
         // html!
 //        String stringOriginal =
@@ -167,7 +163,7 @@ return posicoes;
 
 
         // Passando a String que será analisada.
-        String stringOriginal = "<html><head><title>Meu Primeiro HTML</title></head><body><h1>Olá, Mundo!</h1><p>Este é um exemplo básico de HTML.</p><a>Este é um link sem destino</a></body></html>";
+        String stringOriginal = "<html><head><title>Exemplo Completo</title></head><body><h1>Bem-vindo!</h1><p>Este é um parágrafo de exemplo.</p><ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul><table><tr><th>Nome</th><th>Idade</th></tr><tr><td>Ana</td><td>25</td></tr><tr><td>Lucas</td><td>30</td></tr></table><button>Clique Aqui</button></body></html>";
 
         int abertura = 0;
         int fechamento = 0;
