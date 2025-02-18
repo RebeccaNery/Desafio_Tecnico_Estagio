@@ -118,7 +118,7 @@ return posicoes;
         return trechosList;
     }
 
-    public static int determinaNivel (String stringOriginal, ArrayList<Trecho> trechosList){
+    public static void determinaNivel (String stringOriginal, ArrayList<Trecho> trechosList){
         // determinar o nível significa contar quantas tags de abertura existem até a posição de início daquele texto
         int num_aberturas = 0;
         int fim = 0;
@@ -127,13 +127,25 @@ return posicoes;
             int inicio = t.getInicio();
             //for (int i = fim; i< inicio; i++){
                 num_aberturas = contaAberturas(stringOriginal, fim, inicio);
-                System.out.println("Fim: "+ fim + " Inicio: "+ inicio);
+                System.out.println("Fim: "+ fim + " | Inicio: "+ inicio);
                 fim = t.getFim();
             //}
             System.out.println("Nº aberturas : "+ num_aberturas);
             t.setNivel(num_aberturas + 1); //+ 1 por conta da tag de abertura inicial <html>
         }
-        return num_aberturas;
+    }
+
+    public static Trecho comparaNiveis (ArrayList<Trecho> trechosList){
+        Trecho trechoMaisProfundo = new Trecho("", 0, 0);
+        int nivel = 0;
+
+        for (Trecho t : trechosList) {
+            if (t.getNivel() > nivel){
+                nivel = t.getNivel();
+                trechoMaisProfundo = t;
+            }
+        }
+        return trechoMaisProfundo;
     }
 
     public static void main(String[] args) {
@@ -173,12 +185,9 @@ return posicoes;
         // ArrayList que vai conter os objetos do tipo Trecho
         ArrayList<Trecho> trechosList = encontraTrechos(stringOriginal, posicoes);
 
-        //determinaNivel(stringOriginal, trechosList);
-        //trecho1.setNivel(3);
-
         //Calculando o nivel e dando set.Nivel
         System.out.println(" ");
-        System.out.println("Nível encontrado: " + determinaNivel(stringOriginal, trechosList));
+        determinaNivel(stringOriginal, trechosList);
 
         System.out.println(" ");
         System.out.println("Mostrando objetos da classe Trecho: ");
@@ -187,19 +196,14 @@ return posicoes;
                 System.out.println(t);
             }
         }
-
-        //System.out.println("Número de aberturas: " + contaAberturas(stringOriginal));
-
-        //System.out.println("Número de fechamentos: " + contaFechamentos(stringOriginal));
-
+        System.out.println(" ");
+        System.out.println(" O texto de nível mais profundo é ==> ");
+        System.out.println(comparaNiveis(trechosList));
 //        System.out.println(" ");
 //        System.out.println("Mostrando textos encontrados: ");
 //        System.out.println("Tamanho do trechosList: " + trechosList.size());
 //        System.out.println("Tamanho do vetor posicoes: " + posicoes.length);
 
-//        for (int p : posicoes) {
-//                System.out.println(p);
-//        }
     }// Metodo main
 
 
