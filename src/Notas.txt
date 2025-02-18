@@ -120,3 +120,8 @@ public static String[] encontraTextos (String stringX, int[] posicoes){
 
 
 
+if (stringOriginal.charAt(i+1) == '/'){     //FECHAMENTO DE TAG
+                        fechamento++;
+                        //System.out.println("Aqui tem tag de fechamento. Posição:" + i + " / Fechamento:" +
+                        // fechamento);
+                    } else {

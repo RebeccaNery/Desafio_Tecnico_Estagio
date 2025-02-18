@@ -72,15 +72,24 @@ return posicoes;
                 }
 
             }else{
-                System.out.println("Ultrapassagem de limite, verifique e tente novamente. ==>" + i);
+                System.out.println("Ultrapassagem de limite, verifique e tente novamente. ==> " + i);
             }
         } //for
         return abertura;
     }//metodo contaAberturas
 
-    private static int contaFechamentos(String stringOriginal, int i, int inicio) {
+    private static int contaFechamentos(String stringOriginal, int posInicio) {
         int fechamento = 0;
 
+        for (int i = 0; i < posInicio; i++) {                 //percorre o codigo html
+            if (verificaLimites(i, stringOriginal)) {                       // SE A POSIÇÃO EXISTE
+                if (stringOriginal.charAt(i+1) == '/'){     //FECHAMENTO DE TAG
+                    fechamento++;
+                }
+            }else{
+                System.out.println("Ultrapassagem de limite, verifique e tente novamente. ==> " + i);
+            }
+        } //for
 
         return fechamento;
     }
@@ -111,10 +120,11 @@ return posicoes;
             int inicio = t.getInicio();
             //for (int i = fim; i< inicio; i++){
                 num_aberturas = contaAberturas(stringOriginal, 0, inicio);
-                num_fechamentos = contaFechamentos(stringOriginal, 0, inicio);;
+                num_fechamentos = contaFechamentos(stringOriginal, inicio);;
             //}
             System.out.println("Nº aberturas : "+ num_aberturas);
-            t.setNivel(num_aberturas + 1); //+ 1 por conta da tag de abertura inicial <html>
+            System.out.println("Nº fechamentos : "+ num_fechamentos);
+            t.setNivel(num_aberturas - num_fechamentos + 1); //+ 1 por conta da tag de abertura inicial <html>
         }
     }
 
