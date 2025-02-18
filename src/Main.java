@@ -139,6 +139,12 @@ return posicoes;
 
 
 
+         //Mostrando objetos da classe trecho
+        for (Trecho t : trechosList) {
+            if (!t.texto.isEmpty()) {
+                System.out.println(t);
+            }
+        }
 
         //fazer uma substring entre >AQUI</ para mostrar na tela a frase mais profunda
 
