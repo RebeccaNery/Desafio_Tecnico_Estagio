@@ -39,7 +39,8 @@ public class Main {
                 if (stringOriginal.charAt(i) == '<') {                      // SE FOR O SINAL DE MENOR QUE
 
                     if (stringOriginal.charAt(i - 1) != '>' /*&& stringOriginal.charAt(i - 1) != ' '*/) {
-                        fimTexto = i - 1;
+                        //fimTexto = i - 1;
+                        fimTexto = i;
                         //System.out.println("Aqui tem fim de texto. Posição:" + fimTexto);
                         posicoes[indicePosicoes++] = fimTexto;
                     }//FIM DE TEXTO
@@ -144,6 +145,7 @@ return posicoes;
                 nivel = t.getNivel();
                 trechoMaisProfundo = t;
             }
+
         }
         return trechoMaisProfundo;
     }
@@ -171,7 +173,7 @@ return posicoes;
 
 
         // Passando a String que será analisada.
-        String stringOriginal = "<html><head><title>Este é o título.</title></head><body>Este é o corpo.</body></html>";
+        String stringOriginal = "<html><head><title>Meu Primeiro HTML</title></head><body><h1>Olá, Mundo!</h1><p>Este é um exemplo básico de HTML.</p><a>Este é um link sem destino</a></body></html>";
 
         int abertura = 0;
         int fechamento = 0;
@@ -199,6 +201,8 @@ return posicoes;
         System.out.println(" ");
         System.out.println(" O texto de nível mais profundo é ==> ");
         System.out.println(comparaNiveis(trechosList));
+
+
 //        System.out.println(" ");
 //        System.out.println("Mostrando textos encontrados: ");
 //        System.out.println("Tamanho do trechosList: " + trechosList.size());
