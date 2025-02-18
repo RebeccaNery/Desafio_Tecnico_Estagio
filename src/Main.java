@@ -52,29 +52,23 @@ public class Main {
             } else {
                 System.out.println("Limite ultrapassado, verifique e tente novamente. ==>" + i);
             }
-
         } //for
-return posicoes;
+    return posicoes;
     }//metodo encontraPosicoes
 
     public static int contaAberturas(String stringOriginal, int posInicio) {
         int abertura = 0;
 
-        for (int i = 0; i < posInicio; i++) {                 //percorre o codigo html
+        for (int i = 0; i < posInicio; i++) {                               //percorre o codigo html
             if (verificaLimites(i, stringOriginal)) {                       // SE A POSIÇÃO EXISTE
 
                 if (stringOriginal.charAt(i) == '<') {                      // SE FOR O SINAL DE MENOR QUE
                     if (stringOriginal.charAt(i + 1) != '/') {     //SE O PROXIMO NAOOOOO FOR BARRA, QUER DIZER QUE É TAG ABERTURA
-                        abertura++;
-                        //ABERTURA DE TAG
+                        abertura++;                                         //ABERTURA DE TAG
                     }
-                    //i++;
                 }
-
-            }else{
-                System.out.println("Ultrapassagem de limite, verifique e tente novamente. ==> " + i);
             }
-        } //for
+        }
         return abertura;
     }//metodo contaAberturas
 
@@ -86,9 +80,7 @@ return posicoes;
                 if (stringOriginal.charAt(i+1) == '/'){     //FECHAMENTO DE TAG
                     fechamento++;
                 }
-            }else{
-                System.out.println("Ultrapassagem de limite, verifique e tente novamente. ==> " + i);
-            }
+           }
         } //for
 
         return fechamento;
@@ -125,9 +117,9 @@ return posicoes;
             // aparece pois ultrapassa os limites
             t.setTagsDeAbertura(num_aberturas);
             t.setTagsDeFechamento(num_fechamentos);
-            System.out.println("Nº aberturas : " + t.tagsDeAbertura);
-            System.out.println("Nº fechamentos : " + t.tagsDeFechamento);
-            System.out.println("Nível: " + t.getNivel());
+//            System.out.println("Nº aberturas : " + t.tagsDeAbertura);
+//            System.out.println("Nº fechamentos : " + t.tagsDeFechamento);
+//            System.out.println("Nível: " + t.getNivel());
         }
     }
 
@@ -149,21 +141,24 @@ return posicoes;
 
         //String stringOriginal = "<html> <head> coisas </head> </html>"; //===> só que a "string original" é um código
         // html!
-//        String stringOriginal =
-//                "<html>" +
-//                        "<head>" +
-//                            "<title>" +
-//                                "Este é o título." +
-//                            "</title>" +
-//                        "</head>" +
-//                        "<body>" +
-//                            "Este é o corpo." +
-//                        "</body>" +
-//                "</html>";
-
-
+//
         // Passando a String que será analisada.
-        String stringOriginal = "<html><head><title>Exemplo Completo</title></head><body><h1>Bem-vindo!</h1><p>Este é um parágrafo de exemplo.</p><ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul><table><tr><th>Nome</th><th>Idade</th></tr><tr><td>Ana</td><td>25</td></tr><tr><td>Lucas</td><td>30</td></tr></table><button>Clique Aqui</button></body></html>";
+        //String stringOriginal = "<html><head><title>Exemplo Completo</title></head><body><h1>Bem-vindo!</h1><p>Este
+        // é um parágrafo de exemplo.</p><ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul><table><tr><th>Nome</th><th>Idade</th></tr><tr><td>Ana</td><td>25</td></tr><tr><td>Lucas</td><td>30</td></tr></table><button>Clique Aqui</button></body></html>";
+
+        String stringOriginal = "<html>" +
+                "    <head>" +
+                "        <title>" +
+                "            Este é o título." +
+                "                <p>" +
+                "                    Este é um parágrafo." +
+                "                </p>" +
+                "        </title>" +
+                "    </head>" +
+                "    <body>" +
+                "        Este é o corpo." +
+                "    </body>" +
+                "</html>";
 
         int abertura = 0;
         int fechamento = 0;
@@ -171,8 +166,8 @@ return posicoes;
 
         // Determinando em quais posições se iniciam e concluem-se os textos.
         posicoes = encontraPosicoes(stringOriginal);
-        System.out.println("Mostrando elementos do vetor posicao[]: ");
-        mostraVetorInt(posicoes);
+//        System.out.println("Mostrando elementos do vetor posicao[]: ");
+//        mostraVetorInt(posicoes);
 
         // ArrayList que vai conter os objetos do tipo Trecho
         ArrayList<Trecho> trechosList = encontraTrechos(stringOriginal, posicoes);
