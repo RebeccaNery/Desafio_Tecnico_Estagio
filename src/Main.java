@@ -10,18 +10,7 @@ public class Main {
         return (i - 1) >= 0 && (i + 1) < stringOriginal.length();
     }
 
-    public static String[] encontraTextos (String stringX, int[] posicoes){
-        String[] textos = new String[posicoes.length/2]; //==> em []posicoes, indices impar = INICIOS de texto, indices
-        // pares = FINS de texto
-
-            for (int k=0; k<posicoes.length-1; k+=2){
-                textos[k/2] = stringX.substring(posicoes[k], posicoes[(k+1)]);
-            }//for
-
-        return textos;
-    }
-
-    public static void mostraVetorInt (int[] vetor){
+        public static void mostraVetorInt (int[] vetor){
         for (int i=0; i< vetor.length; i++){
             if (vetor[i] != 0){
                 System.out.println("Posição[" + i + "] = " + vetor[i]);
@@ -113,7 +102,7 @@ return posicoes;
         } //for
         return abertura;
     }//metodo contaAberturas
-    
+
     public static ArrayList<Trecho> encontraTrechos (String stringX, int[] posicoes){
         ArrayList<Trecho> trechosList = new ArrayList<>(); // este metodo preenche um arraylist
 

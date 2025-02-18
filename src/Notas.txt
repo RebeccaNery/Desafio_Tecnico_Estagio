@@ -72,7 +72,16 @@ if (stringOriginal.charAt(i) == '<'){                          // SE FOR O SINAL
         System.out.println("Não há mais caracteres. Posição final:" + i);
         }
 
+public static String[] encontraTextos (String stringX, int[] posicoes){
+        String[] textos = new String[posicoes.length/2]; //==> em []posicoes, indices impar = INICIOS de texto, indices
+        // pares = FINS de texto
 
+            for (int k=0; k<posicoes.length-1; k+=2){
+                textos[k/2] = stringX.substring(posicoes[k], posicoes[(k+1)]);
+            }//for
+
+        return textos;
+    }
 
 
 
