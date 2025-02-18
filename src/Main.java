@@ -90,6 +90,21 @@ public class Main {
 return posicoes;
     }//metodo encontraPosicoes
 
+    public static ArrayList<Trecho> encontraTrechos (String stringX, int[] posicoes){
+        ArrayList<Trecho> trechosList = new ArrayList<>();
+        //String[] textos = encontraTextos(stringX, posicoes);
+
+        for (int i = 0; i < posicoes.length-1; i+=2) {
+            String recorte = stringX.substring(posicoes[i], posicoes[i+1]);
+            //System.out.println("Recorte: " + recorte);
+            Trecho trecho = new Trecho(recorte, posicoes[i], posicoes[i+1]);
+            trechosList.add(trecho);
+        }
+
+        return trechosList;
+    }
+
+
     public static void main(String[] args) {
 
 //        String tagAbertura = "<";
