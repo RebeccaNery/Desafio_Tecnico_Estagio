@@ -7,7 +7,37 @@ public class Main {
         return (i - 1) >= 0 && (i + 1) < stringOriginal.length();
     }
 
-    public static int descreveCodigo(String stringOriginal) {
+    public static String[] encontraTextos (String stringX, int[] posicoes){
+        String[] trechos = new String[posicoes.length/2]; //==> indices impar = INICIOS de texto, indices pares = FINS
+        // de texto
+
+            for (int k=0; k<posicoes.length-1; k+=2){
+                trechos[k/2] = stringX.substring(posicoes[k], posicoes[(k+1)]);
+            }//for
+
+        return trechos;
+    }
+
+
+    public static void mostraVetorInt (int[] vetor){
+        for (int i=0; i< vetor.length; i++){
+            if (vetor[i] != 0){
+                System.out.println("Posição: " + vetor[i] + " / I:" + i);
+            }
+        }//for
+    }
+
+    public static void mostraVetorString (String[] vetor){
+        for (int i=0; i< vetor.length; i++){
+            if (!(vetor[i].isEmpty())) {
+                System.out.println("Vetor[" + i + "]: " + vetor[i]);
+            }
+        }//for
+    }
+
+    //trechos[k] = stringX.substring(abertura, fechamento);
+
+    public static int[] encontraPosicoes(String stringOriginal) {
         int abertura = 0;
         int fechamento = 0;
         int inicioTexto = 0;
