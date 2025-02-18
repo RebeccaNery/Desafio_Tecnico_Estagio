@@ -93,85 +93,56 @@ public class Main {
 return posicoes;
     }//metodo encontraPosicoes
 
-    public static int contaAberturas(String stringOriginal) {
+    public static int contaAberturas(String stringOriginal, int posFim,int posInicio) {
         int abertura = 0;
-        int fechamento = 0;
 
-        for (int i = 0; i < stringOriginal.length(); i++) {                 //percorre o codigo html
+        for (int i = posFim; i < posInicio; i++) {                 //percorre o codigo html
             if (verificaLimites(i, stringOriginal)) {                       // SE A POSIÇÃO EXISTE
 
                 if (stringOriginal.charAt(i) == '<') {                      // SE FOR O SINAL DE MENOR QUE
-                    if (stringOriginal.charAt(i+1) == '/'){     //FECHAMENTO DE TAG
-                        fechamento++;
-                        System.out.println("Aqui tem tag de fechamento. Posição:" + i + " / Fechamento:" + fechamento);
-                    } else {                    //SE O PROXIMO NAOOOOO FOR BARRA, QUER DIZER QUE É TAG ABERTURA
+                    if (stringOriginal.charAt(i + 1) != '/') {     //SE O PROXIMO NAOOOOO FOR BARRA, QUER DIZER QUE É TAG ABERTURA
                         abertura++;
-                        System.out.println("Aqui tem tag de abertura. Posição:" + i + " / Abertura:" + abertura);
                         //ABERTURA DE TAG
                     }
-
                     i++;
+                }
 
-                } //<<<<<<<<<<<<<<<<<<<<<<
-
-            } else if (stringOriginal.charAt(i) == '<') {
-                abertura++;
-                System.out.println("Aqui tem tag de abertura. Posição:" + i + " / Abertura:" + abertura);
-                //primeira tag de abertura
-            } else if (stringOriginal.charAt(i) == '>'){
-                System.out.println("Fim do código. Posição:" + i);     //ultimo caracter
+            }else{
+                System.out.println("Ultrapassagem de limite, verifique e tente novamente. ==>" + i);
             }
         } //for
         return abertura;
     }//metodo contaAberturas
-
-    public static int contaFechamentos(String stringOriginal) {
-        int fechamento = 0;
-        System.out.println("Contagem das tags de fechamento ======>");
-        for (int i = 0; i < stringOriginal.length(); i++) {                 //percorre o codigo html
-            if (verificaLimites(i, stringOriginal)) {                       // SE A POSIÇÃO EXISTE
-
-                if (stringOriginal.charAt(i) == '<') {                      // SE FOR O SINAL DE MENOR QUE
-                    if (stringOriginal.charAt(i+1) == '/') {     //FECHAMENTO DE TAG
-                        fechamento++;
-                        System.out.println("Aqui tem tag de fechamento. Posição:" + i + " / Fechamento:" + fechamento);
-                        i++;
-                    }
-                } //<<<<<<<<<<<<<<<<<<<<<<
-
-            } else {
-                System.out.println("Ultrapassagem de limite, verifique e tente novamente. ==>" + i);
-            }
-        } //for
-        return fechamento;
-    }//metodo contaFechamentos
-
+    
     public static ArrayList<Trecho> encontraTrechos (String stringX, int[] posicoes){
         ArrayList<Trecho> trechosList = new ArrayList<>(); // este metodo preenche um arraylist
-        //String[] textos = encontraTextos(stringX, posicoes);
 
-        for (int i = 0; i < posicoes.length-1; i+=2) {
+        int i = 0;
+
+        while (posicoes[i] != 0){
             String recorte = stringX.substring(posicoes[i], posicoes[i+1]);
-            //System.out.println("Recorte: " + recorte);
             Trecho trecho = new Trecho(recorte, posicoes[i], posicoes[i+1]);
             trechosList.add(trecho);
+            i += 2;
         }
 
         return trechosList;
     }
 
     public static int determinaNivel (String stringOriginal, ArrayList<Trecho> trechosList){
-        int nivel = 1;
+        // determinar o nível significa contar quantas tags de abertura existem até a posição de início daquele texto
         int num_aberturas = 0;
+        int fim = 0;
 
         for (Trecho t : trechosList) {
             int inicio = t.getInicio();
-            int fim = t.getFim();
-            for (int i = 0; i< inicio; i++){
-                num_aberturas = contaAberturas(stringOriginal);
-                System.out.println("Aberturas: " + num_aberturas);
-
-            }
+            //for (int i = fim; i< inicio; i++){
+                num_aberturas = contaAberturas(stringOriginal, fim, inicio);
+                System.out.println("Fim: "+ fim + " Inicio: "+ inicio);
+                fim = t.getFim();
+            //}
+            System.out.println("Nº aberturas : "+ num_aberturas);
+            t.setNivel(num_aberturas + 1); //+ 1 por conta da tag de abertura inicial <html>
         }
         return num_aberturas;
     }
@@ -207,6 +178,7 @@ return posicoes;
 
         // Determinando em quais posições se iniciam e concluem-se os textos.
         posicoes = encontraPosicoes(stringOriginal);
+        System.out.println("Mostrando elementos do vetor posicao[]: ");
         mostraVetorInt(posicoes);
 
         // ArrayList que vai conter os objetos do tipo Trecho
@@ -215,16 +187,30 @@ return posicoes;
         //determinaNivel(stringOriginal, trechosList);
         //trecho1.setNivel(3);
 
+        //Calculando o nivel e dando set.Nivel
+        System.out.println(" ");
+        System.out.println("Nível encontrado: " + determinaNivel(stringOriginal, trechosList));
 
-         //Mostrando objetos da classe trecho
+        System.out.println(" ");
+        System.out.println("Mostrando objetos da classe Trecho: ");
         for (Trecho t : trechosList) {
             if (!t.texto.isEmpty()) {
                 System.out.println(t);
             }
         }
 
+        //System.out.println("Número de aberturas: " + contaAberturas(stringOriginal));
 
+        //System.out.println("Número de fechamentos: " + contaFechamentos(stringOriginal));
 
+//        System.out.println(" ");
+//        System.out.println("Mostrando textos encontrados: ");
+//        System.out.println("Tamanho do trechosList: " + trechosList.size());
+//        System.out.println("Tamanho do vetor posicoes: " + posicoes.length);
+
+//        for (int p : posicoes) {
+//                System.out.println(p);
+//        }
     }// Metodo main
 
 
