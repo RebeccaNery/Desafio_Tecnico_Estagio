@@ -133,6 +133,7 @@ public class HtmlAnalyzer {
     public static void main(String[] args) {
 
         String saida = null;
+        int [] posicoes;
 
         try {
             // Definindo a URL
@@ -161,31 +162,13 @@ public class HtmlAnalyzer {
             // Copiando o conteúdo para outra variável
             saida = conteudoHtml;
 
-            // Exibindo as duas variáveis para garantir que o conteúdo foi copiado
-            System.out.println("Conteúdo HTML original:");
-            System.out.println(conteudoHtml);
-            System.out.println("\nConteúdo copiado para outra variável:");
-            System.out.println(saida);
-
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("URL connection error.");
         }
 
-
-        // Passando a String que será analisada.
-        //String stringOriginal = "<html><head><title>Exemplo Completo</title></head><body><h1>Bem-vindo!</h1><p>Este
-        // é um parágrafo de exemplo.</p><ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul><table><tr><th>Nome</th><th>Idade</th></tr><tr><td>Ana</td><td>25</td></tr><tr><td>Lucas</td><td>30</td></tr></table><button>Clique Aqui</button></body></html>";
-
         String stringOriginal = saida;
-
         String stringLimpa = removeEspacos(stringOriginal);
-        System.out.println(" ");
-        System.out.println("String pos limpeza: " + stringLimpa);
-
-        int abertura = 0;
-        int fechamento = 0;
-        int [] posicoes;
 
         // Determinando em quais posições se iniciam e concluem-se os textos.
         posicoes = encontraPosicoes(stringLimpa);
@@ -194,20 +177,9 @@ public class HtmlAnalyzer {
         ArrayList<Trecho> trechosList = encontraTrechos(stringLimpa, posicoes);
 
         //Calculando o nivel e dando set.Nivel
-        System.out.println(" ");
         determinaNivel(stringLimpa, trechosList);
 
-        System.out.println(" ");
-        System.out.println("***** Mostrando objetos da classe Trecho: *****");
-        for (Trecho t : trechosList) {
-            if (!t.texto.isEmpty()) {
-                System.out.println(t);
-            }
-        }
-
-        System.out.println(" ");
-        System.out.println(" O texto de nível mais profundo é ==> ");
         System.out.println(comparaNiveis(trechosList));
 
-    }// Metodo main
-}// Classe Main
+    }
+}

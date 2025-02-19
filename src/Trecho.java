@@ -67,6 +67,6 @@ public class Trecho {
 
     public String toString() {
         //return "Texto: " + texto + " ==> Inicio: " + inicio + " | Fim: " + fim + " | Nivel: " + nivel;
-        return "Texto: " + "'" + texto + "'" + " | A: " + tagsDeAbertura + " | F: " + tagsDeFechamento+ " | Nivel: " + nivel;
+        return texto;
     }
 }
