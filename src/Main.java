@@ -26,31 +26,42 @@ public class Main {
         }//for
     }
 
+    public static String removeEspacos(String stringOriginal) {
+        if (stringOriginal == null) {
+            return null;
+        }
+        //return stringOriginal.replaceAll("\\s+", " ").trim();
+//        return stringOriginal.replaceAll("[\\n\\r\\t]+", " ") // Remove quebras de linha e tabs
+//                .replaceAll("\\s+", " ")        // Substitui múltiplos espaços por um único
+//                .trim();
+        stringOriginal = stringOriginal.replaceAll("[\\n\\r\\t]+", "");
+
+        // Remove múltiplos espaços apenas fora das tags
+        stringOriginal = stringOriginal.replaceAll(">\\s+<", "><") // Remove espaços entre as tags
+                .replaceAll("\\s+", " ")   // Reduz múltiplos espaços para um único
+                .trim();
+        return stringOriginal;
+    }
+
     public static int[] encontraPosicoes(String stringOriginal) {
         int inicioTexto = 0;
         int fimTexto = 0;
         int [] posicoes = new int[stringOriginal.length()];
         int indicePosicoes = 0;
-
         for (int i = 0; i < stringOriginal.length(); i++) {                 //percorre o codigo html
             if (verificaLimites(i, stringOriginal)) {                       // SE A POSIÇÃO EXISTE
                 if (stringOriginal.charAt(i) == '<') {                      // SE FOR O SINAL DE MENOR QUE
                     if (stringOriginal.charAt(i - 1) != '>') {
                         fimTexto = i;
                         posicoes[indicePosicoes++] = fimTexto;
-                        //i++;
                     }//FIM DE TEXTO
-                } //<<<<<<<<<<<<<<<<<<<<<<
-
+                }
                 if (stringOriginal.charAt(i) == '>') {                      // SE FOR O SINAL DE MAIOR QUE
                     if (stringOriginal.charAt(i + 1) != '<') {              // OUTRA ABERTURA DE TAG EM SEQUENCIA
                         inicioTexto = i + 1;
                         posicoes[indicePosicoes++] = inicioTexto;
-                        //i++;
-                    }                                                           //INICIO DE TEXTO
-                } //>>>>>>>>>>>>>>>>>>>>>>
-            } else {
-                System.out.println("Limite ultrapassado, verifique e tente novamente. ==>" + i);
+                    }//INICIO DE TEXTO
+                }
             }
         } //for
     return posicoes;
@@ -58,10 +69,8 @@ public class Main {
 
     public static int contaAberturas(String stringOriginal, int posInicio) {
         int abertura = 0;
-
         for (int i = 0; i < posInicio; i++) {                               //percorre o codigo html
             if (verificaLimites(i, stringOriginal)) {                       // SE A POSIÇÃO EXISTE
-
                 if (stringOriginal.charAt(i) == '<') {                      // SE FOR O SINAL DE MENOR QUE
                     if (stringOriginal.charAt(i + 1) != '/') {     //SE O PROXIMO NAOOOOO FOR BARRA, QUER DIZER QUE É TAG ABERTURA
                         abertura++;                                         //ABERTURA DE TAG
@@ -74,7 +83,6 @@ public class Main {
 
     private static int contaFechamentos(String stringOriginal, int posInicio) {
         int fechamento = 0;
-
         for (int i = 0; i < posInicio; i++) {                 //percorre o codigo html
             if (verificaLimites(i, stringOriginal)) {                       // SE A POSIÇÃO EXISTE
                 if (stringOriginal.charAt(i+1) == '/'){     //FECHAMENTO DE TAG
@@ -82,22 +90,18 @@ public class Main {
                 }
            }
         } //for
-
         return fechamento;
     }
 
     public static ArrayList<Trecho> encontraTrechos (String stringX, int[] posicoes){
         ArrayList<Trecho> trechosList = new ArrayList<>(); // este metodo preenche um arraylist
-
         int i = 0;
-
         while (posicoes[i] != 0){
             String recorte = stringX.substring(posicoes[i], posicoes[i+1]);
             Trecho trecho = new Trecho(recorte, posicoes[i], posicoes[i+1]);
             trechosList.add(trecho);
             i += 2;
         }
-
         return trechosList;
     }
 
@@ -106,33 +110,25 @@ public class Main {
         // nivel = num_aberturas - num_fechamentos + 1
         int num_aberturas = 0;
         int num_fechamentos = 0;
-
         for (Trecho t : trechosList) {
             int inicio = t.getInicio();
-            //for (int i = fim; i< inicio; i++){
-                num_aberturas = contaAberturas(stringOriginal, inicio);
-                num_fechamentos = contaFechamentos(stringOriginal, inicio);;
-            //}
+            num_aberturas = contaAberturas(stringOriginal, inicio);
+            num_fechamentos = contaFechamentos(stringOriginal, inicio);
             t.setNivel(num_aberturas - num_fechamentos + 1); // +1 por conta da tag de abertura inicial <html>que não
             // aparece pois ultrapassa os limites
             t.setTagsDeAbertura(num_aberturas);
             t.setTagsDeFechamento(num_fechamentos);
-//            System.out.println("Nº aberturas : " + t.tagsDeAbertura);
-//            System.out.println("Nº fechamentos : " + t.tagsDeFechamento);
-//            System.out.println("Nível: " + t.getNivel());
         }
     }
 
     public static Trecho comparaNiveis (ArrayList<Trecho> trechosList){
         Trecho trechoMaisProfundo = new Trecho("", 0, 0);
         int nivel = 0;
-
         for (Trecho t : trechosList) {
             if (t.getNivel() > nivel){
                 nivel = t.getNivel();
                 trechoMaisProfundo = t;
             }
-
         }
         return trechoMaisProfundo;
     }
@@ -160,21 +156,26 @@ public class Main {
                 "    </body>" +
                 "</html>";
 
+        String stringLimpa = removeEspacos(stringOriginal);
+        //System.out.println("String trimmed: " + trimmedString);
+
+        System.out.println("String pos: " + stringLimpa);
+
         int abertura = 0;
         int fechamento = 0;
         int [] posicoes;
 
         // Determinando em quais posições se iniciam e concluem-se os textos.
-        posicoes = encontraPosicoes(stringOriginal);
+        posicoes = encontraPosicoes(stringLimpa);
 //        System.out.println("Mostrando elementos do vetor posicao[]: ");
 //        mostraVetorInt(posicoes);
 
         // ArrayList que vai conter os objetos do tipo Trecho
-        ArrayList<Trecho> trechosList = encontraTrechos(stringOriginal, posicoes);
+        ArrayList<Trecho> trechosList = encontraTrechos(stringLimpa, posicoes);
 
         //Calculando o nivel e dando set.Nivel
         System.out.println(" ");
-        determinaNivel(stringOriginal, trechosList);
+        determinaNivel(stringLimpa, trechosList);
 
         System.out.println(" ");
         System.out.println("Mostrando objetos da classe Trecho: ");
