@@ -157,9 +157,7 @@ public class Main {
                 "</html>";
 
         String stringLimpa = removeEspacos(stringOriginal);
-        //System.out.println("String trimmed: " + trimmedString);
-
-        System.out.println("String pos: " + stringLimpa);
+        System.out.println("String pos limpeza: " + stringLimpa);
 
         int abertura = 0;
         int fechamento = 0;
@@ -167,8 +165,6 @@ public class Main {
 
         // Determinando em quais posições se iniciam e concluem-se os textos.
         posicoes = encontraPosicoes(stringLimpa);
-//        System.out.println("Mostrando elementos do vetor posicao[]: ");
-//        mostraVetorInt(posicoes);
 
         // ArrayList que vai conter os objetos do tipo Trecho
         ArrayList<Trecho> trechosList = encontraTrechos(stringLimpa, posicoes);
@@ -178,23 +174,16 @@ public class Main {
         determinaNivel(stringLimpa, trechosList);
 
         System.out.println(" ");
-        System.out.println("Mostrando objetos da classe Trecho: ");
+        System.out.println("***** Mostrando objetos da classe Trecho: *****");
         for (Trecho t : trechosList) {
             if (!t.texto.isEmpty()) {
                 System.out.println(t);
             }
         }
+
         System.out.println(" ");
         System.out.println(" O texto de nível mais profundo é ==> ");
         System.out.println(comparaNiveis(trechosList));
 
-
-//        System.out.println(" ");
-//        System.out.println("Mostrando textos encontrados: ");
-//        System.out.println("Tamanho do trechosList: " + trechosList.size());
-//        System.out.println("Tamanho do vetor posicoes: " + posicoes.length);
-
     }// Metodo main
-
-
 }// Classe Main
