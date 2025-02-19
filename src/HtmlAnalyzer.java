@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+@SuppressWarnings("deprecation")
 public class HtmlAnalyzer {
 
     public static boolean verificaLimites(int i, String stringOriginal) {
@@ -132,12 +133,12 @@ public class HtmlAnalyzer {
 
     public static void main(String[] args) {
 
+        String stringURL = args[0];
         String saida = null;
         int [] posicoes;
 
         try {
             // Definindo a URL
-            String stringURL = "http://hiring.axreng.com/internship/example1.html";
             URL url = new URL(stringURL);
 
             // Estabelecendo a conexão
