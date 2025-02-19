@@ -135,9 +135,44 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //String stringOriginal = "<html> <head> coisas </head> </html>"; //===> só que a "string original" é um código
-        // html!
-//
+        try {
+            // Definindo a URL
+            String stringURL = "http://hiring.axreng.com/internship/example1.html";
+            URL url = new URL(stringURL);
+
+            // Estabelecendo a conexão
+            HttpURLConnection conexao = (HttpURLConnection) url.openConnection();
+            conexao.setRequestMethod("GET");
+
+            // Lendo o conteúdo da página
+            BufferedReader ent = new BufferedReader(new InputStreamReader(conexao.getInputStream()));
+            String entrada;
+            StringBuilder conteudo = new StringBuilder();
+
+            while ((entrada = ent.readLine()) != null) {
+                conteudo.append(entrada);
+            }
+
+            // Fecha o reader
+            ent.close();
+
+            // Agora o código HTML está na string "conteudo"
+            String conteudoHtml = conteudo.toString();
+
+            // Copiando o conteúdo para outra variável
+            String saida = conteudoHtml;
+
+            // Exibindo as duas variáveis para garantir que o conteúdo foi copiado
+            System.out.println("Conteúdo HTML original:");
+            System.out.println(conteudoHtml);
+            System.out.println("\nConteúdo copiado para outra variável:");
+            System.out.println(saida);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         // Passando a String que será analisada.
         //String stringOriginal = "<html><head><title>Exemplo Completo</title></head><body><h1>Bem-vindo!</h1><p>Este
         // é um parágrafo de exemplo.</p><ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul><table><tr><th>Nome</th><th>Idade</th></tr><tr><td>Ana</td><td>25</td></tr><tr><td>Lucas</td><td>30</td></tr></table><button>Clique Aqui</button></body></html>";
