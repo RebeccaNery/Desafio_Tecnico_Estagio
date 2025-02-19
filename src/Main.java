@@ -34,13 +34,7 @@ public class Main {
         if (stringOriginal == null) {
             return null;
         }
-        //return stringOriginal.replaceAll("\\s+", " ").trim();
-//        return stringOriginal.replaceAll("[\\n\\r\\t]+", " ") // Remove quebras de linha e tabs
-//                .replaceAll("\\s+", " ")        // Substitui múltiplos espaços por um único
-//                .trim();
         stringOriginal = stringOriginal.replaceAll("[\\n\\r\\t]+", "");
-
-        // Remove múltiplos espaços apenas fora das tags
         stringOriginal = stringOriginal.replaceAll(">\\s+<", "><") // Remove espaços entre as tags
                 .replaceAll("\\s+", " ")   // Reduz múltiplos espaços para um único
                 .trim();
@@ -139,6 +133,8 @@ public class Main {
 
     public static void main(String[] args) {
 
+        String saida = null;
+
         try {
             // Definindo a URL
             String stringURL = "http://hiring.axreng.com/internship/example1.html";
@@ -164,7 +160,7 @@ public class Main {
             String conteudoHtml = conteudo.toString();
 
             // Copiando o conteúdo para outra variável
-            String saida = conteudoHtml;
+            saida = conteudoHtml;
 
             // Exibindo as duas variáveis para garantir que o conteúdo foi copiado
             System.out.println("Conteúdo HTML original:");
@@ -181,21 +177,10 @@ public class Main {
         //String stringOriginal = "<html><head><title>Exemplo Completo</title></head><body><h1>Bem-vindo!</h1><p>Este
         // é um parágrafo de exemplo.</p><ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul><table><tr><th>Nome</th><th>Idade</th></tr><tr><td>Ana</td><td>25</td></tr><tr><td>Lucas</td><td>30</td></tr></table><button>Clique Aqui</button></body></html>";
 
-        String stringOriginal = "<html>" +
-                "    <head>" +
-                "        <title>" +
-                "            Este é o título." +
-                "                <p>" +
-                "                    Este é um parágrafo." +
-                "                </p>" +
-                "        </title>" +
-                "    </head>" +
-                "    <body>" +
-                "        Este é o corpo." +
-                "    </body>" +
-                "</html>";
+        String stringOriginal = saida;
 
         String stringLimpa = removeEspacos(stringOriginal);
+        System.out.println(" ");
         System.out.println("String pos limpeza: " + stringLimpa);
 
         int abertura = 0;
